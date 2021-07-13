@@ -51,7 +51,7 @@ class Stack{
   			cout<<endl;
 		}
 
-		int peek(){
+		void peek(){
   			
             if(top==-1)
              cout<<"PEEK IS null "<<endl;
