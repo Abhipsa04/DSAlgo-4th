@@ -140,7 +140,7 @@ int main()
 	for(int i=0 ; i<res_size ; ++i)//the output graph is stored in graph_res
 	{
 		graph_res[res[i].u-'A'][res[i].v-'A']=res[i].weight;//printing the selected edges and corrresponding weight
-
+		graph_res[res[i].v-'A'][res[i].u-'A']=res[i].weight;
 	}
 	cout<<"The output graph is"<<endl;//printing the adjacency matrix of output graph
 	for(int i=0 ; i<n ; ++i)
