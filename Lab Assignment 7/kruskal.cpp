@@ -17,6 +17,33 @@ struct kruskal
 	int weight;//weight
 };
 kruskal  res[100];
+void merge(kruskal a[] , int l , int mid , int r , int n){
+	int i=l , j=mid+1 , k=l   , t=1;
+	kruskal z[r+1];
+	while(i<=mid && j<=r){
+		if(a[i].weight<=a[j].weight)
+			z[k++]=a[i++];
+		else
+			z[k++]=a[j++];
+		}
+	while(i<=mid) z[k++]=a[i++];
+	while(j<=r) z[k++]=a[j++];
+	
+	for(int i=l ; i<=r ; ++i)
+		a[i]=z[i];
+}
+void merge_sort(kruskal a[] , int l , int r , int n){
+	int mid ;
+	
+	if(l<r){
+		 mid=(l+r)/2;
+		merge_sort(a , l , mid , n);
+		merge_sort(a , mid+1 , r , n);
+		merge(a , l , mid , r , n);
+		
+	}
+
+}
 
 int find(int i)
 {	//cout<<"find passed index: "<<i<<endl;
@@ -55,15 +82,16 @@ void weighted_union(int i , int j)// Adding the edges of graph
 	}
 	cout<<endl;*/
 }
-bool compare(kruskal x, kruskal y){
+/*bool compare(kruskal x, kruskal y){
 	return x.weight<y.weight;
-}
+}*/
 void MST_kruskal(kruskal a[] , int size)
 {
 	for(int i=0 ; i<n ; ++i)
 		set1[i]=-1;
 	
-    sort(a,a+size,compare);
+	merge_sort(a , 0 , size-1 , size);
+    //sort(a,a+size,compare);
 	/*for(int i=0;i<size;i++)
 	{
 		cout<<a[i].u<<" ";

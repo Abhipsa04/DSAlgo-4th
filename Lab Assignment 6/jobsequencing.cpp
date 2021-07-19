@@ -9,12 +9,40 @@ class job
 		int deadline;
 		int profit;
 };
+void merge(job a[] , int l , int mid , int r , int n){
+    int i=l , j=mid+1 , k=l ,  t=1;
+    job z[r+1];
+    while( i<=mid && j<=r){
+        if(a[i].profit>=a[j].profit)
+            z[k++]=a[i++];
+        else
+            z[k++]=a[j++];
+        }
+    while(i<=mid) z[k++]=a[i++];
+    while(j<=r) z[k++]=a[j++];
+    
+    for(int i=l ; i<=r ; ++i)
+        a[i]=z[i];
+}
+void merge_sort(job a[] , int l , int r , int n){
+    int mid ;
+    static int t=1;
+    if(l<r){
+         mid=(l+r)/2;
+        merge_sort(a , l , mid , n);
+        merge_sort(a , mid+1 , r , n);
+        merge(a , l , mid , r , n);
+       
+
+}
+}
+
 // our compare function to sort
-bool mycompare(job *x,job *y)//boolean function
+/*bool mycompare(job *x,job *y)//boolean function
 {
 	//sort as per decreasing profit
 	return x->profit>y->profit; 
-}
+}*/
 
 int maxProfit(job** obj,int n){
 	int max=0,profit=0;;
@@ -28,8 +56,8 @@ int maxProfit(job** obj,int n){
 				max=obj[i]->deadline;
 		}
 	}
-	
-	sort(obj,obj+n,mycompare);
+	merge_sort(*obj,0,n-1,n);
+	//sort(obj,obj+n,mycompare);
 	// create array of max deadline size
 	int store[max]={0};	// empty array initially
 	bool slot[max]={false}; //all slots empty initially
